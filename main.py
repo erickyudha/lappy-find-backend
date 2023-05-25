@@ -1,14 +1,18 @@
 from flask import Flask, jsonify, request, abort
+from flask_cors import CORS, cross_origin
 import pickle
 import sklearn
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 pkl_filename = 'model.pkl'
 with open(pkl_filename, 'rb') as file:
     model = pickle.load(file)
 
 @app.route("/predict", methods=['POST'])
+@cross_origin()
 def predict_price():
     try:
         if request.method == 'POST':
