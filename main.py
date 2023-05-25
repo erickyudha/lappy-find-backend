@@ -8,10 +8,10 @@ pkl_filename = 'model.pkl'
 with open(pkl_filename, 'rb') as file:
     model = pickle.load(file)
 
-@app.route("/predict", methods=['POST'])
+@app.route("/predict", methods=['GET'])
 def predict_price():
     try:
-        if request.method == 'POST':
+        if request.method == 'GET':
             PRICE_WEIGHT = 0.6
             predict_data = request.json
             price = model.predict([[
